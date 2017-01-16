@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="noadapter-2.0.1-SNAPSHOT">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/vn.tiki.noadapter2/noadapter/2.0.1-SNAPSHOT/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/vn.tiki.noadapter2/noadapter/2.0.1-SNAPSHOT/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/vn/tiki/noadapter2/noadapter/2.0.1-SNAPSHOT/noadapter-2.0.1-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
