@@ -1,0 +1,70 @@
+import com.android.build.gradle.internal.tasks.AndroidTestTask
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: 'dependencies.gradle'
+
+buildscript {
+  ext.kotlin_version = '1.0.6'
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:2.2.3'
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    // NOTE: Do not place your application dependencies here; they belong
+    // in the individual module build.gradle files
+  }
+}
+
+allprojects {
+  repositories {
+    jcenter()
+    mavenLocal()
+  }
+}
+
+task clean(type: Delete) {
+  delete rootProject.buildDir
+}
+
+project.ext.preDexLibraries = !rootProject.ext.ci
+
+subprojects {
+
+  plugins.apply('checkstyle')
+
+  task('checkstyle', type: Checkstyle) {
+    configFile rootProject.file('checkstyle.xml')
+    source 'src/main/java'
+    ignoreFailures false
+    showViolations true
+    include '**/*.java'
+
+    classpath = files()
+  }
+
+  afterEvaluate {
+    project.plugins.whenPluginAdded { plugin ->
+      if ("com.android.build.gradle.AppPlugin".equals(plugin.class.name)) {
+        project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibraries
+      } else if ("com.android.build.gradle.LibraryPlugin".equals(plugin.class.name)) {
+        project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibraries
+      }
+    }
+
+    tasks.findByName('check').dependsOn('checkstyle')
+
+    // The default 'assemble' task only applies to normal variants. Add test variants as well.
+    android.testVariants.all { variant -> tasks.getByName('assemble').dependsOn variant.assemble
+    }
+
+    tasks.withType(AndroidTestTask) { task ->
+      task.doFirst {
+        logging.level = LogLevel.INFO
+      }
+      task.doLast {
+        logging.level = LogLevel.LIFECYCLE
+      }
+    }
+  }
+}

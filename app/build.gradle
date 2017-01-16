@@ -1,0 +1,83 @@
+buildscript {
+  repositories {
+    jcenter()
+    mavenLocal()
+    maven {
+      url = "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+  }
+  dependencies {
+    classpath 'com.squareup.sqldelight:gradle-plugin:0.5.1'
+    classpath "io.realm:realm-gradle-plugin:2.2.1"
+  }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.squareup.sqldelight'
+apply plugin: 'realm-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+  defaultConfig {
+    applicationId rootProject.ext.applicationId
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.compileSdkVersion
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+  sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+  }
+}
+
+kapt {
+  generateStubs = true
+}
+
+dependencies {
+  def dependencies = rootProject.ext
+
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+  compile dependencies.appCompat
+  compile dependencies.recyclerView
+  compile dependencies.noAdapter
+
+  compile dependencies.dagger
+  kapt dependencies.daggerCompiler
+  compile dependencies.rxJava
+  compile dependencies.rxAndroid
+  provided dependencies.autoValue
+  kapt dependencies.autoValueAnnotations
+  provided dependencies.autoValueGson
+  kapt dependencies.autoValueGson
+  compile dependencies.gson
+  compile dependencies.retrofit2
+  compile dependencies.converterGson
+  compile dependencies.okHttp3
+  compile dependencies.okHttp3LoggingInterceptor
+  compile dependencies.timber
+  compile dependencies.retrofit2RxJava2Adapter
+
+  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
+  testCompile 'junit:junit:4.12'
+  testCompile mockito
+}
+repositories {
+  mavenCentral()
+}
