@@ -7,6 +7,7 @@ import timber.log.Timber
 import vn.tale.architecture.common.di.Injector
 import vn.tale.architecture.common.di.SuperComponent
 import vn.tale.architecture.data.DataModule
+import vn.tale.architecture.domain.DomainModule
 import vn.tale.architecture.top_repos.TopReposModule
 
 /**
@@ -30,6 +31,7 @@ class TheApp : Application(), Injector, SuperComponent {
     appComponent = DaggerAppComponent.builder()
         .appModule(AppModule(this))
         .dataModule(DataModule())
+        .domainModule(DomainModule())
         .build()
   }
 

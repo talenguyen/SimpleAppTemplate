@@ -71,6 +71,7 @@ dependencies {
   compile dependencies.okHttp3LoggingInterceptor
   compile dependencies.timber
   compile dependencies.retrofit2RxJava2Adapter
+  compile dependencies.glide
 
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'

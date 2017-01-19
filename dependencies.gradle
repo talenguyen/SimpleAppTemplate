@@ -23,6 +23,7 @@ ext {
   timber = 'com.jakewharton.timber:timber:4.5.0'
   retrofit2RxJava2Adapter = 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
   noAdapter = 'vn.tiki.noadapter2:noadapter:2.0.1-SNAPSHOT'
+  glide = 'com.github.bumptech.glide:glide:3.7.0'
 
   mockito = 'org.mockito:mockito-core:2.6.2'
 }

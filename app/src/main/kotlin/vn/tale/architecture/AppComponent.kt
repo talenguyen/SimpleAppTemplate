@@ -20,5 +20,5 @@ import javax.inject.Singleton
 )
 interface AppComponent {
 
-  operator fun plus(topReposModule: TopReposModule): TopReposComponent
+  fun plus(topReposModule: TopReposModule): TopReposComponent
 }

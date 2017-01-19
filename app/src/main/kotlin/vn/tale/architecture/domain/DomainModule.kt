@@ -11,6 +11,6 @@ import vn.tale.architecture.domain.interactor.GetTopJavaRepoInteractor
 @Module
 class DomainModule {
 
-  @Provides internal fun provideGetTopJavaReposInteractor(
+  @Provides fun provideGetTopJavaReposInteractor(
       gitHubService: GitHubService) = GetTopJavaRepoInteractor(gitHubService)
 }

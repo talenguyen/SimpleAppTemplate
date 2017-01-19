@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import vn.tale.architecture.common.ImageLoader
 import vn.tale.architecture.common.di.ApplicationContext
 
 /**
@@ -12,7 +13,7 @@ import vn.tale.architecture.common.di.ApplicationContext
 @Module
 class AppModule(private val application: Application) {
 
-  @Provides @ApplicationContext internal fun provideApplicationContext(): Context {
-    return application
-  }
+  @Provides @ApplicationContext internal fun provideApplicationContext(): Context = application
+
+  @Provides fun provideImageLoader(): ImageLoader = GlideImageLoader()
 }
